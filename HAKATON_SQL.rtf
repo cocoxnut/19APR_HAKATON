@@ -281,4 +281,103 @@ market=# SELECT kivano.product_name, kivano.produser_id, sulpak.product_name, su
  MSI GL65 Leopard 10SCSR-051XRU 9S7-16U822-051 |          17 | Nokia 110                                     |          17 |          17 | China\
 (20 rows)\
 \
+market=# SELECT kivano.product_name, kivano.produser_id, sulpak.product_name, sulpak.produser_id FROM kivano, sulpak ORDER BY kivano.produser_id, sulpak.produser_id;\
+                 product_name                  | produser_id |                 product_name                  | produser_id \
+-----------------------------------------------+-------------+-----------------------------------------------+-------------\
+ Huawei P30 lite                               |           1 | Samsung Galaxy S9                             |           1\
+ Huawei P30 lite                               |           1 | Samsung Galaxy S10 8                          |           2\
+ Huawei P30 lite                               |           1 | Nokia 230 Dual Sim                            |           4\
+ Huawei P30 lite                               |           1 | MSI Thin                                      |           5\
+ Huawei P30 lite                               |           1 | Acer Aspire A315-55G                          |           6\
+ Huawei P30 lite                               |           1 | Huawei P smart Z                              |           6\
+ Huawei P30 lite                               |           1 | Iphone 6                                      |           7\
+ Huawei P30 lite                               |           1 | Lenovo IdeaPad L3 15IML05                     |           8\
+ Huawei P30 lite                               |           1 | MSI Thin                                      |          10\
+ Huawei P30 lite                               |           1 | Xiaomi Poco X3 NFC                            |          13\
+ Huawei P30 lite                               |           1 | Huawei P smart Z                              |          13\
+ Huawei P30 lite                               |           1 | Samsung Galaxy S9                             |          13\
+ Huawei P30 lite                               |           1 | Samsung Galaxy A10                            |          14\
+ Huawei P30 lite                               |           1 | ASUS Fonepad Note 6 16Gb                      |          15\
+ Huawei P30 lite                               |           1 | MacBook Air 16                                |          16\
+ Huawei P30 lite                               |           1 | Huawei Y6p                                    |          16\
+ Huawei P30 lite                               |           1 | Huawei Y6p                                    |          17\
+ Huawei P30 lite                               |           1 | Nokia 110                                     |          17\
+ Huawei P30 lite                               |           1 | Xiaomi Redmi Note 8                           |          21\
+ Huawei P30 lite                               |           1 | OnePlus 2                                     |          21\
+ Huawei P30 lite                               |           1 | Iphone 10                                     |          25\
+ Huawei P30 lite                               |           1 | Acer Aspire E5-576G-74W4                      |          25\
+ Huawei P30 lite                               |           1 | Iphone 5                                      |          26\
+ Huawei P30 lite                               |           1 | Iphone 6                                      |          29\
+ Huawei P30 lite                               |           1 | MSI GL65 Leopard 10SCSR-051XRU 9S7-16U822-051 |          31\
+ Huawei P30 lite                               |           1 | Iphone 5                                      |          32\
+ Huawei P30 lite                               |           1 | MacBook Air 13                                |          33\
+ Huawei P30 lite                               |           1 | Acer Aspire E5-576G-74W4                      |          33\
+ Huawei P30 lite                               |           1 | Lenovo Ideapad 320-15ISK                      |          35\
+ Huawei P30 lite                               |           1 | MSI GF72VR 7RF                                |          35\
+ Huawei P30 lite                               |           1 | Nokia 110                                     |          36\
+ Huawei P30 lite                               |           1 | MSI Thin                                      |          37\
+ Huawei P30 lite                               |           1 | MSI Thin                                      |          39\
+ Huawei P30 lite                               |           1 | Huawei P30 lite                               |          39\
+ Huawei P30 lite                               |           1 | Nokia 106                                     |          43\
+ Huawei P30 lite                               |           1 | Acer Aspire E5-576G-5121                      |          45\
+ Huawei P30 lite                               |           1 | MSI Thin                                      |          45\
+ Huawei P30 lite                               |           1 | OnePlus 1                                     |          45\
+ Huawei P30 lite                               |           1 | Huawei P smart Z                              |          45\
+ Huawei P30 lite                               |           1 | Huawei P smart Z                              |          45\
+ Huawei P30 lite                               |           1 | Iphone 7                                      |          47\
+ Huawei P30 lite                               |           1 | Acer Aspire E5-576G-56QV                      |          47\
+ Huawei P30 lite                               |           1 | MSI Thin                                      |          48\
+ Huawei P30 lite                               |           1 | Xiaomi Redmi 9A                               |          49\
+ Huawei P30 lite                               |           1 | MacBook Air 16                                |          50\
+\
+market=# SELECT kivano.product_name, sulpak.product_name FROM kivano, sulpak WHERE kivano.product_name NOT IN (sulpak.product_name);\
+                 product_name                  |                 product_name                  \
+-----------------------------------------------+-----------------------------------------------\
+ Huawei Y6p                                    | Huawei Y9 Prime\
+ Huawei Y6p                                    | OnePlus Zero\
+ Huawei Y6p                                    | MSI GF72VR 7RF\
+ Huawei Y6p                                    | Acer Aspire E5-576G-5121\
+ Huawei Y6p                                    | ASUS ZenFone 4 Selfie ZD553KL\
+ Huawei Y6p                                    | OnePlus 2\
+ Huawei Y6p                                    | MacBook Air 13\
+ Huawei Y6p                                    | Huawei P smart Z\
+ Huawei Y6p                                    | Acer Aspire A315-55G\
+ Huawei Y6p                                    | Xiaomi Redmi Note 8\
+ Huawei Y6p                                    | Nokia 230 Dual Sim\
+ Huawei Y6p                                    | MacBook Air 16\
+ Huawei Y6p                                    | Iphone 7\
+ Huawei Y6p                                    | Iphone 5\
+ Huawei Y6p                                    | ASUS PadFone mini\
+ Huawei Y6p                                    | Nokia 230 Dual Sim\
+ Huawei Y6p                                    | MSI Thin\
+ Huawei Y6p                                    | MSI Thin\
+ Huawei Y6p                                    | OnePlus 2\
+ Huawei Y6p                                    | Lenovo Ideapad S145-15IIL\
+ Huawei Y6p                                    | MacBook Pro 13\
+ Huawei Y6p                                    | Nokia 3310 Dual Sim\
+ Huawei Y6p                                    | OnePlus 1\
+ Huawei Y6p                                    | Samsung Galaxy A71\
+ Huawei Y6p                                    | Samsung Galaxy S9\
+ Huawei Y6p                                    | Acer Aspire E5-576G-74W4\
+ Huawei Y6p                                    | Iphone 6\
+ Huawei Y6p                                    | Samsung Galaxy A21s\
+ Huawei Y6p                                    | Acer Aspire E5-576G-74W4\
+ Huawei Y6p                                    | Acer A315-55G\
+ Huawei Y6p                                    | ASUS ZenFone 4 Selfie ZD553KL\
+ Huawei Y6p                                    | Huawei P40 Pro\
+ Huawei Y6p                                    | ASUS PadFone mini\
+ Huawei Y6p                                    | MacBook Pro 16\
+ Huawei Y6p                                    | ASUS ZenFone 4 Selfie ZD553KL\
+ Huawei Y6p                                    | Samsung Galaxy S10 8\
+ Huawei Y6p                                    | OnePlus 2\
+ Huawei Y6p                                    | OnePlus Zero\
+ Huawei Y6p                                    | Acer Aspire E5-576G-56QV\
+ Huawei Y6p                                    | ASUS Fonepad Note 6 16Gb\
+ Huawei Y6p                                    | Iphone 6\
+ Huawei Y6p                                    | MSI Thin\
+ Huawei Y6p                                    | Nokia 110\
+ Huawei Y6p                                    | MSI Thin\
+ Huawei Y6p                                    | Xiaomi Redmi 9A\
+\
+\
 }
