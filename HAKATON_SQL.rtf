@@ -1,7 +1,7 @@
 {\rtf1\ansi\ansicpg1251\cocoartf2638
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
-{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red59\green189\blue255;}
-{\*\expandedcolortbl;;\csgray\c0;\cssrgb\c27267\c78870\c100000;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\csgray\c0;\csgray\c100000;}
 \paperw11900\paperh16840\margl1440\margr1440\vieww25780\viewh8400\viewkind0
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
@@ -95,7 +95,7 @@ market=# SELECT * FROM sulpak;\
       33 |           2 |          59 | Acer A315-55G                                 | 30000\
       34 |           1 |          68 | ASUS ZenFone 4 Selfie ZD553KL                 | 30000\
 \
-market=# SELECT kivano.category_id, kivano.product_name, kivano.price, sulpak.category_id, sulpak.product_name, sulpak.price FROM kivano, sulpak WHERE kivano.category_id = '1' AND sulpak.category_id = '2'AND kivano.price = sulpak.price;\
+market=# SELECT kivano.category_id, kivano.product_name, kivano.price, sulpak.category_id, sulpak.product_name, sulpak.price FROM kivano, sulpak WHERE kivano.category_id = '1' AND sulpak.category_id = '2' AND kivano.price = sulpak.price;\
  category_id |                 product_name                  | price | category_id |                 product_name                  | price \
 -------------+-----------------------------------------------+-------+-------------+-----------------------------------------------+-------\
            1 | Huawei Y6p                                    | 85000 |           2 | Huawei P30 lite                               | 85000\
@@ -174,6 +174,12 @@ market=# SELECT kivano.product_name, MAX(kivano.price), sulpak.product_name, MAX
  Iphone 12    | 97500 | Iphone 10    | 82500\
 (24 rows)\
 \
+market=# SELECT kivano.product_name, MAX(kivano.price), sulpak.product_name, MAX(sulpak.price) FROM kivano, sulpak WHERE kivano.product_name LIKE 'Iphone 1%' AND sulpak.product_name LIKE 'Iphone 1%' GROUP BY kivano.product_name, sulpak.product_name;\
+ product_name |  max  | product_name |  max  \
+--------------+-------+--------------+-------\
+ Iphone 10    | 62500 | Iphone 10    | 82500\
+ Iphone 12    | 97500 | Iphone 10    | 82500\
+(2 rows)\
             \
 market=# SELECT kivano.product_name, kivano.category_id, kivano.produser_id, sulpak.product_name, sulpak.category_id, sulpak.produser_id FROM kivano INNER JOIN sulpak ON kivano.produser_id = sulpak.produser_id WHERE kivano.category_id = '1' AND sulpak.category_id = '2'; \
          product_name          | category_id | produser_id |                 product_name                  | category_id | produser_id \
@@ -379,5 +385,246 @@ market=# SELECT kivano.product_name, sulpak.product_name FROM kivano, sulpak WHE
  Huawei Y6p                                    | MSI Thin\
  Huawei Y6p                                    | Xiaomi Redmi 9A\
 \
+market=# SELECT sulpak.product_name, sulpak.produser_id, produsers.produser_id, produsers.produser_company FROM sulpak INNER JOIN produsers ON sulpak.produser_id = produsers.produser_id WHERE produsers.produser_id IN (SELECT produsers.produser_id WHERE produsers.produser_company LIKE '%m%'); \
+                 product_name                  | produser_id | produser_id | produser_company \
+-----------------------------------------------+-------------+-------------+------------------\
+ Huawei Y9 Prime                               |          82 |          82 | Xiaomi\
+ MacBook Air 16                                |          50 |          50 | Xiaomi\
+ Nokia 230 Dual Sim                            |          59 |          59 | Samsung\
+ MSI Thin                                      |          10 |          10 | Xiaomi\
+ Lenovo Ideapad S145-15IIL                     |          50 |          50 | Xiaomi\
+ MacBook Pro 13                                |          77 |          77 | Xiaomi\
+ Nokia 3310 Dual Sim                           |          98 |          98 | Xiaomi\
+ Acer Aspire E5-576G-74W4                      |          77 |          77 | Xiaomi\
+ Acer A315-55G                                 |          59 |          59 | Samsung\
+ Huawei P40 Pro                                |          95 |          95 | Samsung\
+ Samsung Galaxy S10 8                          |          95 |          95 | Samsung\
+ ASUS Fonepad Note 6 16Gb                      |          96 |          96 | Samsung\
+ MSI Thin                                      |          39 |          39 | Samsung\
+ MSI Thin                                      |          48 |          48 | Xiaomi\
+ MSI GL65 Leopard 10SCSR-051XRU 9S7-16U822-051 |          31 |          31 | Samsung\
+ ASUS PadFone mini                             |          82 |          82 | Xiaomi\
+ MSI GL65 Leopard 10SCSR-051XRU 9S7-16U822-051 |          58 |          58 | Samsung\
+ Xiaomi Redmi 9C                               |          90 |          90 | Xiaomi\
+ Acer Aspire E5-576G-56QV                      |          82 |          82 | Xiaomi\
+ MacBook Pro 13                                |          96 |          96 | Samsung\
+ Huawei P30 lite                               |          39 |          39 | Samsung\
+ MacBook Pro 19                                |          96 |          96 | Samsung\
+ ASUS ZenFone 4 Selfie ZD553KL                 |          66 |          66 | Samsung\
+(23 rows)\
 \
+market=# SELECT kivano.product_name, sulpak.product_name FROM kivano, sulpak WHERE kivano.product_name = sulpak.product_name;\
+                 product_name                  |                 product_name                  \
+-----------------------------------------------+-----------------------------------------------\
+ Huawei Y6p                                    | Huawei Y6p\
+ Huawei Y6p                                    | Huawei Y6p\
+ Huawei Y6p                                    | Huawei Y6p\
+ Huawei Y6p                                    | Huawei Y6p\
+ OnePlus 3                                     | OnePlus 3\
+ MSI GF72VR 7RF                                | MSI GF72VR 7RF\
+ MSI GF72VR 7RF                                | MSI GF72VR 7RF\
+ Acer Aspire A315-55G                          | Acer Aspire A315-55G\
+ Acer Aspire A315-55G                          | Acer Aspire A315-55G\
+ ASUS ZenFone 4 Selfie ZD553KL                 | ASUS ZenFone 4 Selfie ZD553KL\
+ ASUS ZenFone 4 Selfie ZD553KL                 | ASUS ZenFone 4 Selfie ZD553KL\
+ ASUS ZenFone 4 Selfie ZD553KL                 | ASUS ZenFone 4 Selfie ZD553KL\
+ ASUS ZenFone 4 Selfie ZD553KL                 | ASUS ZenFone 4 Selfie ZD553KL\
+ ASUS ZenFone 4 Selfie ZD553KL                 | ASUS ZenFone 4 Selfie ZD553KL\
+ OnePlus Zero                                  | OnePlus Zero\
+ OnePlus Zero                                  | OnePlus Zero\
+ MacBook Pro 16                                | MacBook Pro 16\
+ Acer Aspire E5-576G-56QV                      | Acer Aspire E5-576G-56QV\
+ Acer Aspire E5-576G-56QV                      | Acer Aspire E5-576G-56QV\
+ Xiaomi Redmi Note 8T                          | Xiaomi Redmi Note 8T\
+ MacBook Air 16                                | MacBook Air 16\
+ MacBook Air 16                                | MacBook Air 16\
+ Iphone 10                                     | Iphone 10\
+ Iphone 10                                     | Iphone 10\
+ Iphone 10                                     | Iphone 10\
+ Iphone 7                                      | Iphone 7\
+ ASUS Fonepad Note 6 16Gb                      | ASUS Fonepad Note 6 16Gb\
+ ASUS Fonepad Note 6 16Gb                      | ASUS Fonepad Note 6 16Gb\
+ ASUS Fonepad Note 6 16Gb                      | ASUS Fonepad Note 6 16Gb\
+ Nokia 3310 Dual Sim                           | Nokia 3310 Dual Sim\
+ Nokia 3310 Dual Sim                           | Nokia 3310 Dual Sim\
+ OnePlus Zero                                  | OnePlus Zero\
+ OnePlus Zero                                  | OnePlus Zero\
+ Huawei Y6p                                    | Huawei Y6p\
+ Huawei Y6p                                    | Huawei Y6p\
+ Huawei Y6p                                    | Huawei Y6p\
+\
+market=# SELECT kivano.product_name, kivano.produser_id, produsers.produser_id, produsers.produser_country FROM kivano INNER JOIN produsers ON kivano.produser_id = produsers.produser_id WHERE produsers.produser_id IN (SELECT produsers.produser_id WHERE produsers.produser_country = 'China') AND kivano.product_name LIKE '%k%'; \
+  product_name  | produser_id | produser_id | produser_country \
+----------------+-------------+-------------+------------------\
+ MacBook Pro 13 |          62 |          62 | China\
+(1 row)\
+\
+market=# UPDATE produsers SET produser_company = 'Apple', produser_country = 'Kyrgyzstan' WHERE prodused_date IN (SELECT prodused_date FROM produsers ORDER BY prodused_date DESC LIMIT 5);\
+UPDATE 5\
+market=# SELECT produser_country, produser_company, prodused_date FROM produsers ORDER BY prodused_date DESC LIMIT 5;\
+ produser_country | produser_company | prodused_date \
+------------------+------------------+---------------\
+ Kyrgyzstan       | Apple            | 2023-01-25\
+ Kyrgyzstan       | Apple            | 2023-01-19\
+ Kyrgyzstan       | Apple            | 2023-01-11\
+ Kyrgyzstan       | Apple            | 2023-01-11\
+ Kyrgyzstan       | Apple            | 2023-01-05\
+(5 rows)\
+\
+\
+market=# SELECT kivano.product_name, kivano.price, sulpak.product_name, sulpak.price FROM kivano FULL OUTER JOIN sulpak ON kivano.product_name = sulpak.product_name;\
+                 product_name                  | price |                 product_name                  | price \
+-----------------------------------------------+-------+-----------------------------------------------+-------\
+ Huawei Y6p                                    | 85000 | Huawei Y6p                                    | 62500\
+ Huawei Y6p                                    | 85000 | Huawei Y6p                                    | 62500\
+ Huawei Y6p                                    | 85000 | Huawei Y6p                                    | 60000\
+ Huawei Y6p                                    | 85000 | Huawei Y6p                                    | 55000\
+ OnePlus 3                                     | 62500 | OnePlus 3                                     | 40000\
+ MSI GF72VR 7RF                                | 27500 | MSI GF72VR 7RF                                | 85000\
+ MSI GF72VR 7RF                                | 27500 | MSI GF72VR 7RF                                | 70000\
+ Acer Aspire A315-55G                          | 97500 | Acer Aspire A315-55G                          | 70000\
+ Acer Aspire A315-55G                          | 97500 | Acer Aspire A315-55G                          | 85000\
+ ASUS ZenFone 4 Selfie ZD553KL                 | 52500 | ASUS ZenFone 4 Selfie ZD553KL                 | 65000\
+ ASUS ZenFone 4 Selfie ZD553KL                 | 52500 | ASUS ZenFone 4 Selfie ZD553KL                 | 85000\
+ ASUS ZenFone 4 Selfie ZD553KL                 | 52500 | ASUS ZenFone 4 Selfie ZD553KL                 | 92500\
+ ASUS ZenFone 4 Selfie ZD553KL                 | 52500 | ASUS ZenFone 4 Selfie ZD553KL                 | 30000\
+ ASUS ZenFone 4 Selfie ZD553KL                 | 52500 | ASUS ZenFone 4 Selfie ZD553KL                 | 65000\
+ OnePlus Zero                                  | 90000 | OnePlus Zero                                  | 45000\
+ OnePlus Zero                                  | 90000 | OnePlus Zero                                  | 40000\
+ MacBook Pro 16                                | 95000 | MacBook Pro 16                                | 90000\
+ Huawei Y6s                                    | 35000 |                                               |      \
+ Acer Aspire E5-576G-56QV                      | 47500 | Acer Aspire E5-576G-56QV                      | 85000\
+ Acer Aspire E5-576G-56QV                      | 47500 | Acer Aspire E5-576G-56QV                      | 70000\
+ Xiaomi Redmi Note 8T                          | 20000 | Xiaomi Redmi Note 8T                          | 97500\
+ Nokia 150 Dual sim                            | 35000 |                                               |      \
+ MacBook Air 16                                | 22500 | MacBook Air 16                                | 75000\
+ MacBook Air 16                                | 22500 | MacBook Air 16                                | 30000\
+ Iphone 10                                     | 62500 | Iphone 10                                     | 82500\
+ Iphone 10                                     | 62500 | Iphone 10                                     | 27500\
+ Iphone 10                                     | 62500 | Iphone 10                                     | 67500\
+ Iphone 7                                      | 95000 | Iphone 7                                      | 85000\
+ ASUS Fonepad Note 6 16Gb                      | 22500 | ASUS Fonepad Note 6 16Gb                      | 70000\
+ ASUS Fonepad Note 6 16Gb                      | 22500 | ASUS Fonepad Note 6 16Gb                      | 90000\
+ ASUS Fonepad Note 6 16Gb                      | 22500 | ASUS Fonepad Note 6 16Gb                      | 92500\
+ Nokia 3310 Dual Sim                           | 27500 | Nokia 3310 Dual Sim                           | 97500\
+ Nokia 3310 Dual Sim                           | 27500 | Nokia 3310 Dual Sim                           | 67500\
+ MSI GF65 Thin 9SD 9S7-16W112-252              | 72500 |                                               |      \
+ MSI GF65 Thin 9SD 9S7-16W112-252              | 75000 |                                               |      \
+ OnePlus Zero                                  | 62500 | OnePlus Zero                                  | 45000\
+\
+market=# SELECT kivano.product_name, kivano.produser_id, sulpak.product_name, sulpak.produser_id, produsers.produser_id, produsers.produser_country, produsers.prodused_date FROM kivano INNER JOIN sulpak ON kivano.produser_id = sulpak.produser_id INNER JOIN produsers ON sulpak.produser_id = produsers.produser_id WHERE produsers.produser_id IN (SELECT produsers.produser_id WHERE produsers.produser_country = 'Japan') ORDER BY prodused_date DESC LIMIT 5;\
+       product_name       | produser_id |      product_name      | produser_id | produser_id | produser_country | prodused_date \
+--------------------------+-------------+------------------------+-------------+-------------+------------------+---------------\
+ ASUS PadFone mini        |          10 | MSI Thin               |          10 |          10 | Japan            | 2017-01-03\
+ Huawei P30 lite          |          10 | MSI Thin               |          10 |          10 | Japan            | 2017-01-03\
+ Samsung Galaxy Note 8    |          56 | Samsung Galaxy Note 10 |          56 |          56 | Japan            | 2016-01-06\
+ Iphone 7                 |          56 | Samsung Galaxy Note 10 |          56 |          56 | Japan            | 2016-01-06\
+ ASUS Fonepad Note 6 16Gb |          36 | Nokia 110              |          36 |          36 | Japan            | 2004-01-18\
+(5 rows)\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3 \cb2 (END)\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \cb1 market=# SELECT product_name, SUM (price + 1000) FROM sulpak GROUP BY product_name;\
+                 product_name                  |  sum   \
+-----------------------------------------------+--------\
+ Huawei Y6p                                    | 244000\
+ Huawei P smart Z                              |  61000\
+ Acer A315-55G                                 |  31000\
+ Acer Aspire A315-55G                          | 157000\
+ OnePlus 3                                     |  41000\
+ Acer Aspire E5-576G-56QV                      | 157000\
+ Xiaomi Mi A2                                  |  38500\
+ Samsung Galaxy A10                            |  66000\
+ MacBook Pro 19                                | 144500\
+ OnePlus 1                                     | 263000\
+ Nokia 230 Dual Sim                            | 208000\
+ Xiaomi Redmi 9C                               |  46000\
+ Huawei P30 lite                               | 149500\
+ Acer Aspire E5-576G-74W4                      | 203000\
+ Nokia 110                                     | 152000\
+ Iphone 5                                      | 165500\
+ MacBook Air 13                                |  93500\
+ Huawei P smart Z                              | 120500\
+ MacBook Air 16                                | 107000\
+ MSI GL63 8RD                                  |  88500\
+ ASUS PadFone mini                             | 113000\
+ MacBook Pro 13                                | 177000\
+ Huawei P40 Pro                                |  68500\
+ MSI GL65 Leopard 10SCSR-051XRU 9S7-16U822-051 | 119500\
+ Xiaomi Redmi 9A                               | 152000\
+ Lenovo Ideapad S145-15IIL                     |  41000\
+ OnePlus Zero                                  |  87000\
+ Samsung Galaxy S10 8                          |  67000\
+ Samsung Galaxy A21s                           |  96000\
+ Iphone 6                                      |  72000\
+ MSI Thin                                      | 408500\
+ Huawei Y9 Prime                               |  88500\
+ Iphone 10                                     | 180500\
+ Samsung Galaxy Note 10                        |  63500\
+ Nokia 106                                     | 127000\
+ Xiaomi Mi Note 10 Lite                        | 144500\
+\
+market=# SELECT kivano.product_name, MIN(kivano.price), sulpak.product_name, MAX(sulpak.price) FROM kivano, sulpak GROUP BY kivano.product_name, sulpak.product_name;\
+                 product_name                  |  min  |                 product_name                  |  max  \
+-----------------------------------------------+-------+-----------------------------------------------+-------\
+ Iphone 6                                      | 92500 | Xiaomi Redmi Note 8                           | 70000\
+ Xiaomi Redmi 9A                               | 47500 | Nokia 106                                     | 65000\
+ MSI GL65 Leopard 10SCSR-051XRU 9S7-16U822-051 | 20000 | Huawei P40 Pro                                | 67500\
+ Iphone 5                                      | 40000 | Xiaomi Redmi Note 8T                          | 97500\
+ MSI GL65 Leopard 10SCSR-051XRU 9S7-16U822-051 | 20000 | Iphone 7                                      | 85000\
+ Samsung Galaxy S10 8                          | 20000 | MacBook Air 16                                | 75000\
+ Samsung Galaxy A10                            | 95000 | Samsung Galaxy A71                            | 70000\
+ ASUS PadFone mini                             | 32500 | Nokia 110                                     | 85000\
+ MSI GF65 Thin 9SD 9S7-16W112-252              | 20000 | Samsung Galaxy Note 10                        | 62500\
+ Samsung Galaxy A71                            | 22500 | Acer A315-55G                                 | 30000\
+ Iphone 6                                      | 92500 | Lenovo Ideapad 320-15ISK                      | 72500\
+ ASUS Fonepad Note 6 16Gb                      | 22500 | Xiaomi Redmi Note 8                           | 70000\
+ MacBook Air 16                                | 22500 | Huawei P40 Pro                                | 67500\
+ MacBook Air 16                                | 22500 | MSI Thin                                      | 97500\
+ Acer Aspire A315-55G                          | 97500 | ASUS ZenFone 4 Selfie ZD553KL                 | 92500\
+ Huawei P30 lite                               | 22500 | Iphone 7                                      | 85000\
+ Acer A315-55G                                 | 27500 | Lenovo IdeaPad L3 15IML05                     | 42500\
+ Nokia 230 Dual Sim                            | 70000 | Samsung Galaxy S10 8                          | 45000\
+ MacBook Pro 19                                | 50000 | Samsung Galaxy S10 8                          | 45000\
+ Huawei P30 lite                               | 22500 | Nokia 106                                     | 65000\
+ Nokia 150 Dual sim                            | 35000 | Xiaomi Mi Note 10 Lite                        | 80000\
+ MacBook Air 13                                | 40000 | MacBook Air 13                                | 92500\
+ MacBook Pro 13                                | 85000 | Xiaomi Mi A2                                  | 37500\
+ Acer Aspire E5-576G-5121                      | 65000 | MacBook Air 16                                | 75000\
+ MacBook Air 13                                | 40000 | ASUS ZenFone 4 Selfie ZD553KL                 | 92500\
+ Acer Extensa EX215-51-38HJ                    | 87500 | Nokia 106                                     | 65000\
+ Iphone 4                                      | 85000 | Samsung Galaxy S9                             | 85000\
+ MacBook Pro 13                                | 85000 | Xiaomi Redmi Note 8T                          | 97500\
+ ASUS PadFone mini                             | 32500 | Acer Aspire A315-55G                          | 85000\
+ Nokia 110                                     | 85000 | MacBook Pro 13                                | 90000\
+ MacBook Pro 16                                | 30000 | MSI GL65 Leopard 10SCSR-051XRU 9S7-16U822-051 | 87500\
+ Lenovo Ideapad 320-15ISK                      | 22500 | OnePlus Zero                                  | 45000\
+ Huawei Y6s                                    | 35000 | Acer Aspire E5-576G-74W4                      | 85000\
+ Huawei Y6p                                    | 42500 | Samsung Galaxy Note 10                        | 62500\
+ Huawei P30 lite                               | 22500 | ASUS PadFone mini                             | 67500\
+ Nokia 3310 Dual Sim                           | 27500 | Samsung Galaxy A21s                           | 95000\
+\
+market=# SELECT kivano.category_id, kivano.product_name, MIN(kivano.price), sulpak.category_id, sulpak.product_name, MIN(sulpak.price) FROM kivano, sulpak WHERE kivano.category_id = '1' AND sulpak.category_id = '1' GROUP BY kivano.category_id, sulpak.category_id, kivano.product_name, sulpak.product_name;\
+\
+ category_id |                 product_name                  |  min  | category_id |         product_name          |  min  \
+-------------+-----------------------------------------------+-------+-------------+-------------------------------+-------\
+           1 | Samsung Galaxy A10                            | 95000 |           1 | Huawei P40 Pro                | 67500\
+           1 | Samsung Galaxy A71                            | 67500 |           1 | Nokia 230 Dual Sim            | 52500\
+           1 | ASUS PadFone mini                             | 32500 |           1 | Huawei Y6p                    | 62500\
+           1 | Huawei Y6s                                    | 35000 |           1 | Iphone 5                      | 85000\
+           1 | Samsung Galaxy S9                             | 70000 |           1 | MSI Thin                      | 77500\
+           1 | MacBook Pro 13                                | 85000 |           1 | ASUS PadFone mini             | 20000\
+           1 | OnePlus 2                                     | 22500 |           1 | Nokia 106                     | 60000\
+           1 | Nokia 105 Dual sim                            | 60000 |           1 | Huawei P smart Z              | 45000\
+           1 | Acer Aspire E5-576G-5121                      | 65000 |           1 | Acer Aspire E5-576G-56QV      | 70000\
+           1 | Iphone 12                                     | 97500 |           1 | Samsung Galaxy A71            | 40000\
+           1 | Huawei Y6s                                    | 35000 |           1 | Samsung Galaxy Note 10        | 62500\
+           1 | OnePlus Zero                                  | 62500 |           1 | Xiaomi Redmi Note 8           | 70000\
+           1 | Nokia 150 Dual sim                            | 35000 |           1 | Xiaomi Redmi 9C               | 45000\
+           1 | Samsung Galaxy Note 10                        | 82500 |           1 | Nokia 106                     | 60000\
+           1 | Samsung Galaxy Note 10                        | 82500 |           1 | MSI Thin                      | 77500\
+           1 | Acer Aspire E5-576G-56QV                      | 20000 |           1 | Samsung Galaxy Note 10        | 62500\
+           1 | ASUS Fonepad Note 6 16Gb                      | 22500 |           1 | Nokia 3310 Dual Sim           | 67500\
 }
